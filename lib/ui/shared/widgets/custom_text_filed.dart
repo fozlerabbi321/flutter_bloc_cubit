@@ -4,10 +4,19 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextFiled extends StatelessWidget {
   final TextEditingController filedController;
-
+  final String? hintText;
+  final Function? onConfirm;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final TextInputAction? actionType;
   const CustomTextFiled({
     Key? key,
     required this.filedController,
+    this.hintText,
+    this.suffixIcon,
+    this.onConfirm,
+    this.prefixIcon,
+    this.actionType,
   }) : super(key: key);
 
   @override
@@ -31,27 +40,25 @@ class CustomTextFiled extends StatelessWidget {
               height: 1.0,
           ),
           controller: filedController,
-          onChanged: (value) {},
+          textInputAction: actionType,
+          onFieldSubmitted: onConfirm as void Function(String)?,
           decoration: InputDecoration(
-            hintText: "কাঙ্ক্ষিত পণ্যটি খুঁজুন",
+            errorStyle: const TextStyle(fontSize: 11, height: 0.3),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+            prefixStyle: const TextStyle(
+              fontSize: 16,
+            ),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            hintText: hintText,
             hintStyle: GoogleFonts.balooDa2(
               color: kSecondaryTextColor,
-                height: 1.0,
+              height: 1.0,
             ),
-
-            fillColor: Colors.transparent,
-              contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 10),
-              // hintStyle: kDescriptionText.copyWith(color: kWhiteColor),
-              alignLabelWithHint: false,
-              border: const OutlineInputBorder(borderSide: BorderSide.none),
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            focusedErrorBorder: InputBorder.none,
-             // alignLabelWithHint: false,
-            suffixIcon: const Icon(Icons.search, color: kSecondaryTextColor,)
+            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            // hintStyle: kDescriptionText.copyWith(color: kWhiteColor),
+            alignLabelWithHint: false,
+            border: const OutlineInputBorder(borderSide: BorderSide.none),
           ),
         ),
       ),

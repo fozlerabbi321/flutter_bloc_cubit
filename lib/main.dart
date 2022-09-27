@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_task/utils/constants.dart';
+import 'bloc/cubit/search/search_cubit.dart';
 import 'theme/light_theme.dart';
 import 'ui/screens/search_screen.dart';
 
@@ -12,11 +14,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: Constants.kAppName,
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      home: const SearchScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => SearchCubit()..getProductList(false),
+        ),
+      ],
+      child: MaterialApp(
+        title: Constants.kAppName,
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        home: const SearchScreen(),
+      ),
     );
   }
 }

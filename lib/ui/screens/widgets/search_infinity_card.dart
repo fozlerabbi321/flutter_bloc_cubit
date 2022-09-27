@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task/models/rp_products_model.dart';
 import 'package:flutter_task/utils/size_config.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/colors.dart';
+import '../../../utils/constants.dart';
 
 class SearchInfinityCard extends StatelessWidget {
   final int index;
+  final ProductList product;
 
-  const SearchInfinityCard({Key? key, required this.index}) : super(key: key);
+  const SearchInfinityCard({
+    Key? key,
+    required this.index,
+    required this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,9 @@ class SearchInfinityCard extends StatelessWidget {
         InkWell(
           onTap: () {},
           child: Container(
-            margin: const EdgeInsets.only(bottom: 15,),
+            margin: const EdgeInsets.only(
+              bottom: 15,
+            ),
             height: SizeConfig.screenHeight! / 3,
             child: Card(
               elevation: 1,
@@ -35,48 +45,51 @@ class SearchInfinityCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Stack(
-                        alignment: Alignment.topRight,
+                        clipBehavior: Clip.none,
                         children: [
                           SizedBox(
-                            child: ClipRRect(
-                              clipBehavior: Clip.hardEdge,
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(15),
-                                  bottom: Radius.zero),
-                              child: FadeInImage.assetNetwork(
-                                placeholder: 'assets/placeholder.png',
-                                image:
-                                    'https://cdn.shopify.com/s/files/1/1859/8979/files/CPI-0158-inline-img-01.jpg?v=1553883913',
-                                fit: BoxFit.cover,
-                                imageErrorBuilder: (BuildContext context,
-                                    Object exception, StackTrace? stackTrace) {
-                                  return Image.asset(
-                                    'assets/placeholder.png',
-                                    fit: BoxFit.cover,
-                                  );
-                                },
+                            child: Padding(
+                              padding: EdgeInsets.only(top: (product.stock ?? 0) == 0 ? 15 : 0),
+                              child: ClipRRect(
+                                clipBehavior: Clip.hardEdge,
+                                borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(15),
+                                    bottom: Radius.zero),
+                                child: FadeInImage.assetNetwork(
+                                  placeholder: 'assets/placeholder.png',
+                                  image: product.image ?? '',
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder: (BuildContext context,
+                                      Object exception, StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      'assets/placeholder.png',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
-                          index == 1
-                              ? Container(
-                                  margin: const EdgeInsets.all(10),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: kStockOutTextBg,
-                                  ),
-                                  child: Text(
-                                    'স্টকে নেই',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            color: kStockOutTextColor),
-                                  ))
-                              : Container(),
+                          Positioned(
+                            top: -10,
+                            right: 0,
+                            child: (product.stock ?? 0) == 0 ? Container(
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: kStockOutTextBg,
+                              ),
+                              child: Text(
+                                'স্টকে নেই',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: kStockOutTextColor),
+                              )) : const SizedBox(),),
                         ],
                       ),
                     ),
@@ -85,10 +98,12 @@ class SearchInfinityCard extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 20),
                       child: Column(
                         children: [
-                          Text('This is product name',
+                          Text(product.productName ?? '',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.subtitle1),
+                              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                                fontFamily: GoogleFonts.balooDa2().fontFamily
+                              ),),
                           Row(
                             children: [
                               Text(
@@ -104,7 +119,7 @@ class SearchInfinityCard extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '৳ 1000',
+                                '${Constants.kCurrency} ${double.parse(product.charge?.currentCharge ?? '').round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3
@@ -115,7 +130,7 @@ class SearchInfinityCard extends StatelessWidget {
                               ),
                               Expanded(child: Container()),
                               Text(
-                                '৳ 100',
+                                '${Constants.kCurrency} ${double.parse(product.charge?.currentCharge ?? '') + (product.charge?.discountCharge ?? 0)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1
@@ -142,7 +157,7 @@ class SearchInfinityCard extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '৳ 1000',
+                                '${Constants.kCurrency} ${double.parse(product.charge?.sellingPrice ?? '').round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -166,7 +181,7 @@ class SearchInfinityCard extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '৳ 100',
+                                '${Constants.kCurrency} ${double.parse(product.charge?.profit ?? '').round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -194,8 +209,7 @@ class SearchInfinityCard extends StatelessWidget {
                 }),
                 child: index == 3
                     ? InkWell(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Container(
                           height: 36,
                           width: 36,
