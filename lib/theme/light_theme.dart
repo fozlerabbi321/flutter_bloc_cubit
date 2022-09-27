@@ -117,7 +117,7 @@ ThemeData lightTheme = ThemeData(
     ),
     bodyText2: TextStyle(
       color: kBlackColor,
-      fontSize: 10,
+      fontSize: 8,
       fontWeight: FontWeight.w300,
       height: 1.0,
       fontStyle: FontStyle.normal,
