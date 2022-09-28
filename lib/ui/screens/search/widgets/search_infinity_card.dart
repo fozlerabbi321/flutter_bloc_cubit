@@ -3,8 +3,9 @@ import 'package:flutter_task/models/rp_products_model.dart';
 import 'package:flutter_task/utils/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
+import '../../../../utils/assets.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/constants.dart';
 
 class SearchInfinityCard extends StatelessWidget {
   final int index;
@@ -56,13 +57,13 @@ class SearchInfinityCard extends StatelessWidget {
                                     top: Radius.circular(15),
                                     bottom: Radius.zero),
                                 child: FadeInImage.assetNetwork(
-                                  placeholder: 'assets/placeholder.png',
+                                  placeholder: AssetsImage.placeholder,
                                   image: product.image ?? '',
                                   fit: BoxFit.cover,
                                   imageErrorBuilder: (BuildContext context,
                                       Object exception, StackTrace? stackTrace) {
                                     return Image.asset(
-                                      'assets/placeholder.png',
+                                      AssetsImage.placeholder,
                                       fit: BoxFit.cover,
                                     );
                                   },
@@ -130,7 +131,7 @@ class SearchInfinityCard extends StatelessWidget {
                               ),
                               Expanded(child: Container()),
                               Text(
-                                '${Constants.kCurrency} ${double.parse(product.charge?.currentCharge ?? '') + (product.charge?.discountCharge ?? 0)}',
+                                '${Constants.kCurrency} ${(double.parse(product.charge?.currentCharge ?? '') + (product.charge?.discountCharge ?? 0)).round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1

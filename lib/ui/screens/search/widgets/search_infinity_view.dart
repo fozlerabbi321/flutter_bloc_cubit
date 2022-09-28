@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_task/bloc/cubit/search/search_cubit.dart';
 import 'package:flutter_task/bloc/cubit/search/search_state.dart';
-import '../../shared/shared/custom_bottom_loader.dart';
+import '../../../shared/shared/custom_bottom_loader.dart';
 import 'search_infinity_card.dart';
 
 class SearchInfinityView extends StatefulWidget {
@@ -58,32 +58,33 @@ class _SearchInfinityViewState extends State<SearchInfinityView> {
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     )
-                  : Stack(
-                      clipBehavior: Clip.none,
+                  : Column(
+
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: MasonryGridView.count(
-                            controller: _scrollController,
-                            crossAxisCount: 2,
-                            shrinkWrap: true,
-                            itemCount: cubit.productList.length,
-                            mainAxisSpacing: 15,
-                            crossAxisSpacing: 15,
-                            padding: EdgeInsets.zero,
-                            itemBuilder: (BuildContext context, int index) {
-                              return SearchInfinityCard(
-                                  product: cubit.productList[index],
-                                  index: index);
-                            },
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: MasonryGridView.count(
+                              controller: _scrollController,
+                              crossAxisCount: 2,
+                              shrinkWrap: true,
+                              itemCount: cubit.productList.length,
+                              mainAxisSpacing: 15,
+                              crossAxisSpacing: 15,
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (BuildContext context, int index) {
+                                return SearchInfinityCard(
+                                    product: cubit.productList[index],
+                                    index: index);
+                              },
+                            ),
                           ),
                         ),
-                        Positioned(
-                          bottom: -20,
+                        SizedBox(
                           child: cubit.isLoadingMore
                               ? const CustomBottomLoader()
                               : const SizedBox(),
-                        ),
+                        )
                       ],
                     ),
         );

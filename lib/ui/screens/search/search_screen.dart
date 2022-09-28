@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_task/bloc/cubit/search/search_cubit.dart';
 import 'package:flutter_task/utils/constants.dart';
-import '../../utils/colors.dart';
-import '../../utils/size_config.dart';
-import '../shared/widgets/custom_text_filed.dart';
+import '../../../utils/assets.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/size_config.dart';
+import '../../shared/widgets/custom_text_filed.dart';
 import 'widgets/search_infinity_view.dart';
 
 final _searchController = TextEditingController();
@@ -36,9 +38,12 @@ class SearchScreen extends StatelessWidget {
                 }
               },
               hintText: 'কাঙ্ক্ষিত পণ্যটি খুঁজুন',
-              suffixIcon: const Icon(
-                Icons.search,
-                color: kSecondaryTextColor,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.all(10),
+                child: SvgPicture.asset(
+                  AssetsImage.search,
+                  color: kIconColor,
+                ),
               ),
             ),
             const SizedBox(

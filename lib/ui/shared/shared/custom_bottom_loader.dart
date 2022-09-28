@@ -14,7 +14,7 @@ class CustomBottomLoader extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         child: SizedBox(
-          height: 50.0,
+          height: 24.0,
           width: 24.0,
           child: Center(
               child: CircularProgressIndicator(

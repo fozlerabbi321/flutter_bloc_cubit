@@ -11,6 +11,10 @@ class Constants{
   static const String kProductListUrl = '$kBaseUrl/product/search-suggestions';
 
 
+  /// Api end point end
+  static const String kImageDir = 'assets/images/';
+  static const String kIconsDir = 'assets/icons/';
+
   void showCustomSnackBar(BuildContext context, String message, {bool isError = true}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
