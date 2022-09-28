@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_task/bloc/cubit/search/search_cubit.dart';
 import 'package:flutter_task/bloc/cubit/search/search_state.dart';
-import '../../../shared/shared/custom_bottom_loader.dart';
+import '../../../shared/shared/custom_loader.dart';
+import '../../../shared/shared/not_found.dart';
 import 'search_infinity_card.dart';
 
 class SearchInfinityView extends StatefulWidget {
@@ -50,14 +51,9 @@ class _SearchInfinityViewState extends State<SearchInfinityView> {
         SearchCubit cubit = SearchCubit.get(context);
         return Container(
           child: cubit.isProductLoading
-              ? Container()
+              ? const CustomLoader()
               : cubit.productList.isEmpty
-                  ? Center(
-                      child: Text(
-                        'No data available',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                    )
+                  ? const NotFound()
                   : Column(
                       children: [
                         Expanded(
@@ -81,7 +77,7 @@ class _SearchInfinityViewState extends State<SearchInfinityView> {
                         ),
                         SizedBox(
                           child: cubit.isLoadingMore
-                              ? const CustomBottomLoader()
+                              ? const CustomLoader()
                               : const SizedBox(),
                         )
                       ],

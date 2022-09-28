@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../utils/colors.dart';
 
-class CustomBottomLoader extends StatelessWidget {
+class CustomLoader extends StatelessWidget {
 
-  const CustomBottomLoader(
+  const CustomLoader(
       {Key? key,})
       : super(key: key);
 
@@ -14,7 +14,7 @@ class CustomBottomLoader extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         child: SizedBox(
-          height: 24.0,
+          height: 50.0,
           width: 24.0,
           child: Center(
               child: CircularProgressIndicator(

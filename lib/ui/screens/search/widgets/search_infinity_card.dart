@@ -129,7 +129,7 @@ class SearchInfinityCard extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '${Constants.kCurrency} ${double.parse(product.charge?.currentCharge ?? '').round()}',
+                                '${Constants.kCurrency} ${double.parse(product.charge?.currentCharge ?? '0').round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3
@@ -140,7 +140,7 @@ class SearchInfinityCard extends StatelessWidget {
                               ),
                               Expanded(child: Container()),
                               Text(
-                                '${Constants.kCurrency} ${(double.parse(product.charge?.currentCharge ?? '') + (product.charge?.discountCharge ?? 0)).round()}',
+                                '${Constants.kCurrency} ${(double.parse(product.charge?.currentCharge ?? '0') + (product.charge?.discountCharge ?? 0)).round()}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1

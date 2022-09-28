@@ -1,4 +1,5 @@
 
+import '../../models/rp_product_details_model.dart';
 import '../../models/rp_products_model.dart';
 import '../../utils/constants.dart';
 import '../api_provider/products_provider.dart';
@@ -16,7 +17,10 @@ class ProductsRepository {
     }
     return _provider.fetchProductList(url);
   }
-
+  Future<RpProductDetailsModel> fetchProductDetails(String productSlug) {
+    var url = '${Constants.kProductDetailsUrl}/$productSlug';
+    return _provider.fetchProductDetails(url);
+  }
 }
 
 class NetworkError extends Error {}

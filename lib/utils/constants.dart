@@ -9,6 +9,7 @@ class Constants{
   //api end point
   static const String kBaseUrl = 'https://panel.supplyline.network/api';
   static const String kProductListUrl = '$kBaseUrl/product/search-suggestions';
+  static const String kProductDetailsUrl = '$kBaseUrl/product-details';
 
 
   /// Api end point end
