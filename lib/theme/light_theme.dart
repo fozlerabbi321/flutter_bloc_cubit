@@ -20,7 +20,7 @@ ThemeData lightTheme = ThemeData(
     actionsIconTheme: const IconThemeData(
       color: kBlackColor,
     ),
-    centerTitle: true,
+    centerTitle: false,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: kAppBarColor,
       statusBarIconBrightness: Brightness.dark,

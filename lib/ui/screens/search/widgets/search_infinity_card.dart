@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../utils/assets.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constants.dart';
+import '../../details/product_details_screen.dart';
 
 class SearchInfinityCard extends StatelessWidget {
   final int index;
@@ -23,7 +24,15 @@ class SearchInfinityCard extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ProductDetailsScreen(
+                    productSlug: product.slug ?? '',
+                  )),
+            );
+          },
           child: Container(
             margin: const EdgeInsets.only(
               bottom: 15,

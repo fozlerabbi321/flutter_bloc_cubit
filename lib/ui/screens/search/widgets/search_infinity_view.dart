@@ -59,7 +59,6 @@ class _SearchInfinityViewState extends State<SearchInfinityView> {
                       ),
                     )
                   : Column(
-
                       children: [
                         Expanded(
                           child: Padding(

@@ -23,6 +23,7 @@ const Color kStockOutTextColor = Color(0xFFC62828);
 const Color kCounterDecrementIconBg =  Color(0xFFFFBFDD);
 const Color kStockOutTextBg = Color(0xFFFFCCCC);
 const Color kIconColor = Color(0xFFA7A7A7);
+const Color kSteeperColor = Color(0xFFA0A0A0);
 
 
 const LinearGradient kButtonGradient =  LinearGradient(
