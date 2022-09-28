@@ -107,7 +107,7 @@ class ProductList {
       String? productName, 
       String? model, 
       String? commissionType, 
-      String? amount, 
+      String? quantity, 
       String? tag, 
       String? description, 
       String? note, 
@@ -140,7 +140,7 @@ class ProductList {
     _productName = productName;
     _model = model;
     _commissionType = commissionType;
-    _amount = amount;
+    _quantity = quantity;
     _tag = tag;
     _description = description;
     _note = note;
@@ -181,7 +181,7 @@ class ProductList {
     _productName = json['product_name'];
     _model = json['model'];
     _commissionType = json['commission_type'];
-    _amount = json['amount'];
+    _quantity = json['quantity'];
     _tag = json['tag'];
     _description = json['description'];
     _note = json['note'];
@@ -215,7 +215,7 @@ class ProductList {
   String? _productName;
   String? _model;
   String? _commissionType;
-  String? _amount;
+  String? _quantity;
   String? _tag;
   String? _description;
   String? _note;
@@ -249,7 +249,7 @@ class ProductList {
   String? get productName => _productName;
   String? get model => _model;
   String? get commissionType => _commissionType;
-  String? get amount => _amount;
+  String? get quantity => _quantity;
   String? get tag => _tag;
   String? get description => _description;
   String? get note => _note;
@@ -291,7 +291,7 @@ class ProductList {
     map['product_name'] = _productName;
     map['model'] = _model;
     map['commission_type'] = _commissionType;
-    map['amount'] = _amount;
+    map['quantity'] = _quantity;
     map['tag'] = _tag;
     map['description'] = _description;
     map['note'] = _note;

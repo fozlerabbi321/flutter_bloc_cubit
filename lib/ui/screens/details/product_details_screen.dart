@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../bloc/cubit/cart/cart_cubit.dart';
 import '../../../bloc/cubit/details/details_cubit.dart';
 import '../../../bloc/cubit/details/details_state.dart';
 import '../../../utils/assets.dart';
@@ -26,6 +27,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int quantity = context.watch<CartCubit>().getQuantity(productSlug);
+    int totalProduct = context.watch<CartCubit>().state.totalProduct;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('প্রোডাক্ট ডিটেইল'),
@@ -282,10 +286,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                             ),
                                                           ),
                                                         ),
+                                                         
                                                         Align(
                                                           alignment:
                                                               Alignment.center,
-                                                          child: Container(
+                                                          child: quantity == 0 ? const SizedBox() : Container(
                                                             width: SizeConfig
                                                                         .screenWidth! /
                                                                     2 -
@@ -306,7 +311,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                       .spaceBetween,
                                                               children: [
                                                                 InkWell(
-                                                                  onTap: () {},
+                                                                  onTap: () {
+                                                                    context
+                                                                        .read<CartCubit>()
+                                                                        .removeProduct(productSlug);
+                                                                  },
                                                                   child:
                                                                       Container(
                                                                     height: 32,
@@ -332,7 +341,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  '10 পিস',
+                                                                  '$quantity পিস',
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
@@ -342,7 +351,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                                               kPrimaryColor),
                                                                 ),
                                                                 GestureDetector(
-                                                                  onTap: () {},
+                                                                  onTap: () {
+                                                                    context
+                                                                        .read<CartCubit>()
+                                                                        .addProduct(productSlug);
+                                                                  },
                                                                   child:
                                                                       Container(
                                                                     height: 32,
@@ -448,106 +461,115 @@ class ProductDetailsScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 12),
-                                            child: CustomPaint(
-                                              size: Size(
-                                                  90,
-                                                  (90 * 1.0886075949367089)
-                                                      .toDouble()),
-                                              //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                                              painter: CustomPainterNew(),
+                                      InkWell(
+                                        onTap: () {
+                                          quantity == 0
+                                              ? context
+                                              .read<CartCubit>()
+                                              .addProduct(productSlug)
+                                              : null;
+                                        },
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 12),
+                                              child: CustomPaint(
+                                                size: Size(
+                                                    90,
+                                                    (90 * 1.0886075949367089)
+                                                        .toDouble()),
+                                                //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                                                painter: CustomPainterNew(),
+                                              ),
                                             ),
-                                          ),
-                                          productSlug == '-vgzj'
-                                              ? Container()
-                                              : Positioned(
-                                                  right: 0,
-                                                  top: 10,
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 30,
-                                                    width: 30,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: kCounterButtonBg,
-                                                      border: Border.all(
-                                                        color: kWhiteColor,
-                                                        width: 1.5,
+                                            quantity == 0
+                                                ? Container()
+                                                : Positioned(
+                                                    right: 0,
+                                                    top: 10,
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      height: 30,
+                                                      width: 30,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: kCounterButtonBg,
+                                                        border: Border.all(
+                                                          color: kWhiteColor,
+                                                          width: 1.5,
+                                                        ),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          totalProduct.toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .subtitle1
+                                                              ?.copyWith(
+                                                                  fontSize: 16,
+                                                                  height: 1.0),
+                                                        ),
                                                       ),
                                                     ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        '5',
-                                                        textAlign:
-                                                            TextAlign.center,
+                                                  ),
+                                            quantity == 0
+                                                ? Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        'এটি',
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .subtitle1
                                                             ?.copyWith(
-                                                                fontSize: 16,
-                                                                height: 1.0),
+                                                              fontSize: 16,
+                                                              color: kWhiteColor,
+                                                            ),
                                                       ),
-                                                    ),
+                                                      Text(
+                                                        'কিনুন',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .subtitle1
+                                                            ?.copyWith(
+                                                              fontSize: 16,
+                                                              color: kWhiteColor,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                        AssetsImage.shoppingBag,
+                                                        height: 28,
+                                                        width: 28,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Text(
+                                                        'কার্ট',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .subtitle1
+                                                            ?.copyWith(
+                                                              fontSize: 16,
+                                                              color: kWhiteColor,
+                                                            ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                          productSlug == '-vgzj'
-                                              ? Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'এটি',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1
-                                                          ?.copyWith(
-                                                            fontSize: 16,
-                                                            color: kWhiteColor,
-                                                          ),
-                                                    ),
-                                                    Text(
-                                                      'কিনুন',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1
-                                                          ?.copyWith(
-                                                            fontSize: 16,
-                                                            color: kWhiteColor,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      AssetsImage.shoppingBag,
-                                                      height: 28,
-                                                      width: 28,
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'কার্ট',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1
-                                                          ?.copyWith(
-                                                            fontSize: 16,
-                                                            color: kWhiteColor,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),

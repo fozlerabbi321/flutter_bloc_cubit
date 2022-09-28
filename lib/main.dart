@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_task/utils/constants.dart';
+import 'bloc/cubit/cart/cart_cubit.dart';
 import 'bloc/cubit/search/search_cubit.dart';
 import 'theme/light_theme.dart';
 import 'ui/screens/search/search_screen.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<CartCubit>(create: (context) => CartCubit(),),
         BlocProvider(
           create: (_) => SearchCubit()..getProductList(false),
         ),

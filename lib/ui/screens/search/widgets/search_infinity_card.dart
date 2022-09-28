@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_task/models/rp_products_model.dart';
 import 'package:flutter_task/utils/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../bloc/cubit/cart/cart_cubit.dart';
 import '../../../../utils/assets.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constants.dart';
@@ -20,6 +22,7 @@ class SearchInfinityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var quantity = context.watch<CartCubit>().getQuantity(product.slug ?? '');
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -211,15 +214,17 @@ class SearchInfinityCard extends StatelessWidget {
             ),
           ),
         ),
-        index == 2 || index == 3
+        product.stock != 0
             ? AnimatedSwitcher(
                 duration: const Duration(milliseconds: 100),
                 transitionBuilder: ((child, animation) {
                   return ScaleTransition(scale: animation, child: child);
                 }),
-                child: index == 3
+                child: quantity == 0
                     ? InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          context.read<CartCubit>().addProduct(product.slug  ?? '');
+                        },
                         child: Container(
                           height: 36,
                           width: 36,
@@ -245,7 +250,9 @@ class SearchInfinityCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                context.read<CartCubit>().removeProduct(product.slug  ?? '');
+                              },
                               child: Container(
                                 height: 32,
                                 width: 32,
@@ -262,14 +269,16 @@ class SearchInfinityCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '10 পিস',
+                              '$quantity পিস',
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1
                                   ?.copyWith(color: kPrimaryColor),
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                context.read<CartCubit>().addProduct(product.slug  ?? '');
+                              },
                               child: Container(
                                 height: 32,
                                 width: 32,
