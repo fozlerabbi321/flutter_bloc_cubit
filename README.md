@@ -1,4 +1,4 @@
-# flutter_task
+# flutter_bloc_cubit
 
 ## Use this Library
 - google_fonts - change text font family
